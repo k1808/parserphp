@@ -1,0 +1,43 @@
+version: '3.0'
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+        - "8087:80"
+        container_name: curl_nginx
+        depends_on:
+            - fpm
+    fpm:
+        build:
+            context: .
+            dockerfile: docker/Fpm.Dockerfile
+        depends_on:
+        - db
+        volumes:
+        - ./:/var/www/
+        container_name: curl_fpm
+    db:
+        image: mysql:8.0
+        restart: always
+        volumes:
+        - ./docker/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: lardocker
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+        - 8101:3306
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: curl_db
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        depends_on:
+        - db
+        ports:
+        - 8780:80
+        environment:
+        - PMA_ARBITRARY=1
+        container_name: curl_admin
