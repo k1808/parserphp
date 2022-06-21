@@ -19,6 +19,8 @@ services:
         volumes:
         - ./:/var/www/
         container_name: curl_fpm
+        environment:
+            PHP_IDE_CONFIG: "serverName=Docker"
     db:
         image: mysql:8.0
         restart: always
