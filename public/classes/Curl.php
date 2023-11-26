@@ -261,6 +261,17 @@ class curl{
         $headers = explode("\n\n", $headers);
         $headers_part = end($headers);
 
+        $redirects = [];
+        foreach ($headers as $header){
+            $start = strpos($header, 'Location:');
+            if(!$start) continue;
+
+            $start += strlen('Location:') + 1;
+            $loc = substr($header, $start);
+            $end = ($end=stripos($loc, "\n"))?$end:strlen($header);
+            $redirects[] = substr($header, $start, $end);
+        }
+
         /* Парсим headers */
         $lines = explode("\n", $headers_part);
         $headers = array();

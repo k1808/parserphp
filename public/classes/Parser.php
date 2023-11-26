@@ -1,6 +1,6 @@
 <?php
 
-class parser{
+class Parser{
     private $cur;
     private $str;
 

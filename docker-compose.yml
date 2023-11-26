@@ -6,7 +6,7 @@ services:
             - ./:/var/www/
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
         ports:
-        - "8087:80"
+        - "80:80"
         container_name: curl_nginx
         depends_on:
             - fpm
@@ -42,4 +42,4 @@ services:
         - 8780:80
         environment:
         - PMA_ARBITRARY=1
-        container_name: curl_admin
+        container_name: curl_php_admin
