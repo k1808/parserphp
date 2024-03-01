@@ -93,7 +93,7 @@ class curl{
      * TRUE - следовать
      * FALSE - не следовать
      */
-    public function follow($param) {
+    public function follow($param=true) {
         $this->set(CURLOPT_FOLLOWLOCATION, $param);
         return $this;
     }
@@ -251,6 +251,7 @@ class curl{
         $info = curl_getinfo($this->ch);
 
         $headers_part = trim(substr($data, 0, $info['header_size'])); // trim - чтобы обрезать перенос строки в конце
+
         $body_part = substr($data, $info['header_size']);
 
         /* Определяем символ переноса строки */

@@ -1,6 +1,7 @@
+<div><a href="/">Home</a></div>
+<div><a href="index1.php">Next</a></div>
 <?php
-include_once 'classes/Curl.php';
-include_once 'functions.php';
+require_once 'config.php';
 
 $c = Curl::app('https://en.wikipedia.org/')
     ->set(CURLOPT_HEADER, 1)
